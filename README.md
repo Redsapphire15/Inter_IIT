@@ -22,6 +22,7 @@ declare_world_cmd = DeclareLaunchArgument(
 **from '/home/kavin' to '/home/{your username}/{wherever your world file is}'**
 
 Extract the models.zip folder and copy the entire folder and paste it in the /home/{$USER}/.gazebo folder
+
 **NOTE: /.gazebo is a hidden folder. In order to make it viewable, access via terminal or press Ctrl+H in home directory**
 
 Once you've done this,
