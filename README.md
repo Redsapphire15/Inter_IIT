@@ -4,10 +4,14 @@ Contains the files for Inter-IIT 2025 BharatForge
 Follow the below instructions to spawn 4 turtlebots in a warehouse
 
 $ sudo apt install ros-humble-navigation2
+
 $ sudo apt install ros-humble-nav2-bringup
+
 $ sudo apt install ros-humble-turtlebot3-gazebo
 
+
 $ source /opt/ros/humble/setup.bash
+
 $ export TURTLEBOT3_MODEL=waffle  # Iron and older only with Gazebo Classic
 
 In the spawn_4_bots.py, change the line,
