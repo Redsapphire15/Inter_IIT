@@ -16,7 +16,7 @@ $ export TURTLEBOT3_MODEL=waffle  # Iron and older only with Gazebo Classic
 
 In the spawn_4_bots.py, change the line,
 declare_world_cmd = DeclareLaunchArgument(
-        'world', default_value=os.path.join('/home/kavin', 'world2.world'),
+        'world', default_value=os.path.join('/home/kavin', 'world_easy.world'),
         description='World file'
     )
 **from '/home/kavin' to '/home/{your username}/{wherever your world file is}'**
