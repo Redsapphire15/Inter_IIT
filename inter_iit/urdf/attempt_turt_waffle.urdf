@@ -1,0 +1,118 @@
+<?xml version="1.0" ?>
+<robot name="turtlebot3_waffle" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Properties for robot namespaces and topic remaps -->
+  <xacro:property name="robot_namespace" value="$(arg robot_namespace)" />
+  <xacro:property name="topic_prefix" value="$(arg robot_namespace)_"/>
+
+  <!-- Material definitions -->
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+  <material name="dark">
+    <color rgba="0.3 0.3 0.3 1.0"/>
+  </material>
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1.0"/>
+  </material>
+
+  <!-- Base link and joint -->
+  <link name="base_footprint"/>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link" />
+    <origin xyz="0 0 0.010" rpy="0 0 0"/>
+  </joint>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="-0.064 0 0.0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://turtlebot3_gazebo/models/turtlebot3_common/meshes/waffle_base.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="light_black"/>
+    </visual>
+  </link>
+
+  <!-- Wheel joints -->
+  <joint name="wheel_left_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_left_link"/>
+    <origin xyz="0.0 0.144 0.023" rpy="-1.57 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="wheel_left_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+        <mesh filename="package://turtlebot3_gazebo/models/turtlebot3_common/meshes/tire.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+  </link>
+
+  <!-- IMU -->
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0.0 0 0.068" rpy="0 0 0"/>
+  </joint>
+
+  <link name="imu_link"/>
+
+  <!-- LIDAR -->
+  <joint name="scan_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_scan"/>
+    <origin xyz="-0.064 0 0.122" rpy="0 0 0"/>
+  </joint>
+
+  <link name="base_scan">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://turtlebot3_gazebo/models/turtlebot3_common/meshes/lds.dae" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+  </link>
+
+  <!-- Camera -->
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="0.064 -0.065 0.094" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+  </joint>
+
+  <link name="camera_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 1.57"/>
+      <geometry>
+        <mesh filename="package://turtlebot3_gazebo/models/turtlebot3_common/meshes/r200.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Topic Remapping: IMU, Camera, Laser, etc. -->
+  <gazebo>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <robotNamespace>${robot_namespace}</robotNamespace>
+      <topicName>${topic_prefix}imu</topicName>
+    </plugin>
+
+    <plugin name="camera_plugin" filename="libgazebo_ros_camera.so">
+      <robotNamespace>${robot_namespace}</robotNamespace>
+      <imageTopic>${topic_prefix}camera/image_raw</imageTopic>
+      <depthImageTopic>${topic_prefix}camera/depth/image_raw</depthImageTopic>
+    </plugin>
+
+    <plugin name="laser_plugin" filename="libgazebo_ros_laser.so">
+      <robotNamespace>${robot_namespace}</robotNamespace>
+      <scanTopic>${topic_prefix}scan</scanTopic>
+    </plugin>
+  </gazebo>
+
+</robot>
+
