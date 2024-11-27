@@ -1,0 +1,125 @@
+import os
+import yaml
+from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, ExecuteProcess, IncludeLaunchDescription, GroupAction
+from launch.conditions import IfCondition
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration
+from launch_ros.actions import Node
+from launch_ros.actions import PushRosNamespace
+
+
+def generate_launch_description():
+    # Get the launch directory
+    bringup_dir = get_package_share_directory('inter_iit')
+    launch_dir = os.path.join(bringup_dir, 'launch')
+
+    # Paths for robot files
+    xacro_robot2_template = os.path.join(bringup_dir, 'urdf', 'box.urdf.xacro')
+
+    # Load robot spawn configurations from YAML
+    yaml_file = os.path.join(bringup_dir, 'config', 'robots.yaml')
+    with open(yaml_file, 'r') as file:
+        robots_config = yaml.safe_load(file)
+
+    # Create spawn actions
+    spawn_robots = []
+
+    def generate_robot_description(xacro_template, namespace):
+        """
+        Dynamically process the Xacro file and inject the namespace argument.
+        Returns the robot description as a string.
+        """
+        # Use Xacro to process the file with the namespace argument
+        import subprocess
+
+        process = subprocess.run(
+            ['xacro', xacro_template, f'ns:={namespace}'],
+            capture_output=True,
+            text=True
+        )
+
+        if process.returncode != 0:
+            raise RuntimeError(f"Xacro processing failed: {process.stderr}")
+
+        return process.stdout
+
+    def spawn_robot_group(robot_name, xacro_template, x, y, z):
+        """Creates a group action to spawn a robot."""
+        namespace = robot_name
+        robot_description = generate_robot_description(xacro_template, namespace)
+
+        return GroupAction([
+            PushRosNamespace(namespace),
+
+            # Robot State Publisher
+            Node(
+                package='robot_state_publisher',
+                executable='robot_state_publisher',
+                name='robot_state_publisher',
+                output='screen',
+                parameters=[{'use_sim_time': True, 'robot_description': robot_description}]
+            ),
+
+            # Spawn robot in Gazebo
+            Node(
+                package='gazebo_ros',
+                executable='spawn_entity.py',
+                name=f'spawn_{namespace}',
+                output='screen',
+                arguments=[
+                    '-entity', namespace,
+                    '-file', '/dev/null',  # Entity file is not used when robot_description is provided
+                    '-robot_namespace', namespace,
+                    '-x', str(x), '-y', str(y), '-z', str(z)
+                ]
+            )
+        ])
+
+    # Spawn Robot2 (box robots)
+    for i, robot in enumerate(robots_config['robot2']):
+        robot_name = f'robot2_{i+1}'
+        spawn_robots.append(spawn_robot_group(robot_name, xacro_robot2_template, robot['x'], robot['y'], robot['z']))
+
+    # Start Gazebo
+    start_gazebo_server_cmd = ExecuteProcess(
+        cmd=['gzserver', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so', LaunchConfiguration('world')],
+        cwd=[launch_dir],
+        output='screen'
+    )
+
+    start_gazebo_client_cmd = ExecuteProcess(
+        condition=IfCondition(LaunchConfiguration('use_rviz')),
+        cmd=['gzclient'],
+        cwd=[launch_dir],
+        output='screen'
+    )
+
+    # RVIZ
+    rviz_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(launch_dir, 'rviz_launch.py')
+        ),
+        condition=IfCondition(LaunchConfiguration('use_rviz'))
+    )
+
+    # Create launch description
+    ld = LaunchDescription()
+
+    # Declare arguments
+    ld.add_action(DeclareLaunchArgument('use_sim_time', default_value='true', description='Use simulation clock'))
+    ld.add_action(DeclareLaunchArgument('use_rviz', default_value='true', description='Start RVIZ'))
+    ld.add_action(DeclareLaunchArgument('world', default_value=os.path.join(bringup_dir, 'worlds', 'world_easy.world'), description='World file'))
+
+    # Add Gazebo and RVIZ
+    ld.add_action(start_gazebo_server_cmd)
+    ld.add_action(start_gazebo_client_cmd)
+    ld.add_action(rviz_cmd)
+
+    # Add robot spawns
+    for spawn_robot in spawn_robots:
+        ld.add_action(spawn_robot)
+
+    return ld
+
