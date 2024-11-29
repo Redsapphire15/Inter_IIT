@@ -47,7 +47,7 @@ class OdometryToTF(Node):
         print("Hi")
         # Extract odometry position and orientation data
         odom_frame = 'odom'
-        base_link_frame = 'robot1_1/base_link'
+        base_link_frame = 'robot1_1/base_footprint'
 
         self.transform.header.stamp = self.get_clock().now().to_msg()
         self.transform.header.frame_id = odom_frame
@@ -66,7 +66,7 @@ class OdometryToTF(Node):
         print("Hi")
         # Extract odometry position and orientation data
         odom_frame = 'odom'
-        base_link_frame = 'robot1_2/base_link'
+        base_link_frame = 'robot1_2/base_footprint'
 
         self.transform.header.stamp = self.get_clock().now().to_msg()
         self.transform.header.frame_id = odom_frame
@@ -85,7 +85,7 @@ class OdometryToTF(Node):
         print("Hi")
         # Extract odometry position and orientation data
         odom_frame = 'odom'
-        base_link_frame = 'robot1_3/base_link'
+        base_link_frame = 'robot1_3/base_footprint'
 
         self.transform.header.stamp = self.get_clock().now().to_msg()
         self.transform.header.frame_id = odom_frame
@@ -104,7 +104,7 @@ class OdometryToTF(Node):
         print("Hi")
         # Extract odometry position and orientation data
         odom_frame = 'odom'
-        base_link_frame = 'robot1_4/base_link'
+        base_link_frame = 'robot1_4/base_footprint'
 
         self.transform.header.stamp = self.get_clock().now().to_msg()
         self.transform.header.frame_id = odom_frame
