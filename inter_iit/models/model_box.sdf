@@ -4,7 +4,7 @@
   <model name="small_box">
 
     <!-- Base link with the box -->
-    <link name="base_link">
+    <link name="robot2_1/base_link">
       <visual name="visual">
         <geometry>
           <box>
@@ -36,7 +36,7 @@
     </link>
 
     <!-- Base footprint -->
-    <link name="base_footprint">
+    <link name="robot2_1/base_footprint">
       <visual name="visual">
         <geometry>
           <cylinder>
@@ -70,15 +70,22 @@
     </link>
 
     <!-- Fixed joint connecting base_link and base_footprint -->
-    <joint name="base_link_joint" type="fixed">
-      <parent>base_footprint</parent>
-      <child>base_link</child>
+    <joint name="robot2_1/base_link_joint" type="fixed">
+      <parent>robot2_1/base_footprint</parent>
+      <child>robot2_1/base_link</child>
       <pose>0 0 0.1 0 0 0</pose>
     </joint>
 
     <!-- Gazebo Plugin for Planar Movement -->
     <plugin name="planar_move" filename="libgazebo_ros_planar_move.so">
-      <body_name>base_link</body_name>
+      <body_name>robot2_1/base_link</body_name>
+        <publish_odom>false</publish_odom>
+        <publish_odom_tf>false</publish_odom_tf>
+
+        <odometry_topic>/robot2_1/odom</odometry_topic>
+        <odometry_frame>robot2_1/odom</odometry_frame>
+        <robot_base_frame>robot2_1/base_footprint</robot_base_frame>
+
     </plugin>
 
   </model>
