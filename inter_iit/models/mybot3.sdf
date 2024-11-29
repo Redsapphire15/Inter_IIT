@@ -523,7 +523,7 @@
       <publish_wheel_tf>true</publish_wheel_tf>
 
       <odometry_topic>robot1_3/odom</odometry_topic>
-      <odometry_frame>robot1_3/odom</odometry_frame>
+      <odometry_frame>odom</odometry_frame>
       <robot_base_frame>robot1_3/base_footprint</robot_base_frame>
 
     </plugin>
