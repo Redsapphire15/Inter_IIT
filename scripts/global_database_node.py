@@ -18,6 +18,7 @@ import rclpy
 from rclpy.node import Node
 from nav_msgs.msg import Odometry, OccupancyGrid # Getting Odometry Data
 from visualization_msgs.msg import MarkerArray  # Visualizing Obstacles
+from std_msgs.msg import String
 import pygame                   # Visualization method
 from functools import partial   # Creating Multiple subscriptions at once
 import yaml        # To read the input Data.yaml file
@@ -33,6 +34,7 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
         self.robot_data = {}                            # A dictionary to store robot data
         self.num_robots = len(self.data["robot1"])        # Number of robots.
         self.scale = 100                                # Pixels to m(1000/10 = 100)
+        self.assign_list = {}
 
         # Initialize robot data
         for i in range(1, self.num_robots + 1):
@@ -58,6 +60,9 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
         self.create_subscription(MarkerArray, '/obstacle_markers', self.obs_callback, 10)       # Obstacles Subscription
         self.create_subscription(OccupancyGrid, '/map', self.map_callback, 10)                  # Map Subscription
 
+        self.publisher_ = self.create_publisher(String,'/robot_assignment',10)
+        self.time_period = 0.5
+        self.timer = self.create_timer(self.time_period,self.assign_callback)
     def load_data(self, filename):  # Method to load the data.yaml file
         try:
             with open(filename, 'r') as file:
@@ -117,6 +122,11 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
         self.screen.blit(self.surf, (0, 0))
 
         pygame.display.update()
+
+    def assign_callback(self):
+        msg = String()
+        msg.data = str(self.assign_list)
+        self.publisher_.publish(msg)
 
     def draw_cross(self, position, color): # Draw a X to mark the target
         X = int(25 / np.sqrt(2))
@@ -200,7 +210,26 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.CL = False
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_pos = pygame.mouse.get_pos()
+                    if event.button == 1:
+                        for i in range(1,self.num_robots + 1):
+                            bot_pos = self.robot_data[i]["Position"]
+                            if np.sqrt((mouse_pos[0]-bot_pos[0])**2 + (mouse_pos[1]-bot_pos[1])**2) <= 25:
+                                selected_robot = i
+                                selected_target = False
+                                break
 
+                        if selected_robot and not selected_target:
+                            for task_name, location in self.tasks.items():
+                                if np.sqrt((mouse_pos[0] - location[0])**2 + (mouse_pos[1] - location[1])**2) <= 25:
+                                    selected_target = task_name
+                                    break
+                        if selected_robot and selected_target:
+                            self.assign_list[selected_robot] = selected_target
+                            self.assign_callback()
+                            robot_pos = self.robot_data[i]["Position"]
+    
             self.update_data()
             for i in range(1, self.num_robots + 1):
                 self.render_robot(i)
