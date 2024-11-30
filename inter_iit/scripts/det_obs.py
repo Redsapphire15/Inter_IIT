@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import rclpy
+import yaml
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
 from nav_msgs.msg import Odometry
@@ -10,6 +11,8 @@ import torch
 import numpy as np
 from sklearn.cluster import DBSCAN
 from tf_transformations import euler_from_quaternion
+from ament_index_python.packages import get_package_share_directory
+import os
 
 class ObstacleDetector(Node):
     def __init__(self):
@@ -29,30 +32,25 @@ class ObstacleDetector(Node):
         # Initialize subscribers and publishers
         self.marker_publisher = self.create_publisher(MarkerArray, 'obstacle_markers', 10)
 
-        # Discover robots and set up subscriptions
-        self.discover_robots()
+        # Load robot configurations from the YAML file
+        self.load_robot_configurations()
 
-    def discover_robots(self):
-        # Get all topics
-        topics = self.get_topic_names_and_types()
+        # Create a timer to update markers regularly
+        self.create_timer(1.0, self.update_and_publish_markers)
 
-        # Filter scan topics to find unique robots
-        scan_topics = [topic for topic, types in topics if 'sensor_msgs/msg/LaserScan' in types]
-        robot_names = set(topic.split('/')[1] for topic in scan_topics if topic.startswith('/'))
+    def load_robot_configurations(self):
+        bringup_dir = get_package_share_directory('inter_iit')
+        yaml_file = os.path.join(bringup_dir, 'config', 'robots.yaml')
+        with open(yaml_file, 'r') as file:
+            robots_config = yaml.safe_load(file)
 
-        # Set up subscriptions for each robot
-        self.laser_subscriptions = []
-        self.odom_subscriptions = []
-
-        for robot_name in robot_names:
-            scan_topic = f'/{robot_name}/{robot_name}/scan'
-            odom_topic = f'/{robot_name}/{robot_name}/odom'
-            self.laser_subscriptions.append(
-                self.create_subscription(LaserScan, scan_topic, lambda msg, topic=f'{robot_name}': self.laser_callback(msg, topic), 10)
-            )
-            self.odom_subscriptions.append(
-                self.create_subscription(Odometry, odom_topic, lambda msg, topic=f'{robot_name}': self.odom_callback(msg, topic), 10)
-            )
+        for robot_type, robot_list in robots_config.items():
+            for i, robot in enumerate(robot_list):
+                robot_name = robot['name']
+                scan_topic = f'/{robot_name}/{robot_name}/scan'
+                odom_topic = f'/{robot_name}/odom'
+                self.create_subscription(LaserScan, scan_topic, lambda msg, topic=robot_name: self.laser_callback(msg, topic), 10)
+                self.create_subscription(Odometry, odom_topic, lambda msg, topic=robot_name: self.odom_callback(msg, topic), 10)
 
     def odom_callback(self, msg, topic):
         # Extract the robot name from the topic
@@ -93,27 +91,32 @@ class ObstacleDetector(Node):
         # Filter out infinite values
         valid_indices = ~torch.isinf(ranges)
         ranges = ranges[valid_indices]
-        
+
         # Calculate the angles of all valid LIDAR points
-        angles = torch.tensor(np.arange(angle_min, angle_min + len(ranges) * angle_increment, angle_increment))
+        angles = angle_min + np.arange(len(laser_data['ranges'])) * angle_increment
+        angles = torch.tensor(angles, dtype=torch.float32)
+        angles = angles[valid_indices]  # Apply valid indices to angles
 
         # Convert LIDAR points to Cartesian coordinates in the LIDAR frame
         x_lidar = ranges * torch.cos(angles)
         y_lidar = ranges * torch.sin(angles)
 
         # Transform points to the global frame
-        cos_theta = torch.cos(torch.tensor(odom_data['theta']))
-        sin_theta = torch.sin(torch.tensor(odom_data['theta']))
+        cos_theta = torch.cos(torch.tensor(odom_data['theta'], dtype=torch.float32))
+        sin_theta = torch.sin(torch.tensor(odom_data['theta'], dtype=torch.float32))
         x_global = odom_data['x'] + x_lidar * cos_theta - y_lidar * sin_theta
         y_global = odom_data['y'] + x_lidar * sin_theta + y_lidar * cos_theta
 
-        # Append new points to the global obstacle list
+        # Append new points to the global obstacle list without duplicates
         new_obstacles = np.vstack((x_global.cpu().numpy(), y_global.cpu().numpy())).T
-        self.global_obstacles.extend(new_obstacles)
+        for point in new_obstacles:
+            if not any((point == existing_point).all() for existing_point in self.global_obstacles):
+                self.global_obstacles.append(point)
 
+    def update_and_publish_markers(self):
         # Apply clustering to merge close obstacles and remove duplicates
         self.update_global_obstacles()
-
+        
         # Publish markers for visualization in RViz
         self.publish_markers()
 
@@ -152,7 +155,7 @@ class ObstacleDetector(Node):
                         if i < num_segments - 1 or remainder == 0:
                             end_index = np.searchsorted(segment_lengths, (i + 1) * self.dbscan_eps)
                         else:
-                            end_index = len(segment_lengths)  # Include the remainder segment
+                            end_index = len(segment_lengths)  # Include the remainder segment.
 
                         if start_index < end_index:  # Ensure valid segment indices
                             segment = xy[start_index:end_index]
@@ -168,22 +171,22 @@ class ObstacleDetector(Node):
         marker_array = MarkerArray()
         for i, (x, y) in enumerate(self.global_obstacles):
             marker = Marker()
-            marker.header.frame_id = "map"  # Use a common frame like map or odom
+            marker.header.frame_id = "odom"  # Use a common frame like map or odom
             marker.header.stamp = self.get_clock().now().to_msg()
             marker.ns = f"obstacles"
             marker.id = i
             marker.type = Marker.SPHERE
             marker.action = Marker.ADD
-            marker.pose.position.x = x
-            marker.pose.position.y = y
+            marker.pose.position.x = float(x)
+            marker.pose.position.y = float(y)
             marker.pose.position.z = 0.0
             marker.pose.orientation.x = 0.0
             marker.pose.orientation.y = 0.0
             marker.pose.orientation.z = 0.0
             marker.pose.orientation.w = 1.0
-            marker.scale.x = 0.5  # Adjusted scale for better visibility
-            marker.scale.y = 0.5
-            marker.scale.z = 0.5
+            marker.scale.x = 0.3  # Adjusted scale for better visibility
+            marker.scale.y = 0.3
+            marker.scale.z = 0.3
             marker.color.a = 1.0  # Fully opaque
             marker.color.r = 0.0  # Adjust color for better visibility
             marker.color.g = 1.0
@@ -191,6 +194,7 @@ class ObstacleDetector(Node):
             marker.lifetime = Duration(sec=0, nanosec=0)  # Set lifetime to 0 for indefinite duration
             marker_array.markers.append(marker)
         self.marker_publisher.publish(marker_array)
+        self.get_logger().info("Obstacle markers updated")
 
 def main(args=None):
     rclpy.init(args=args)
