@@ -17,6 +17,7 @@
 import rclpy
 from rclpy.node import Node
 from nav_msgs.msg import Odometry, OccupancyGrid # Getting Odometry Data
+from std_msgs.msg import String
 from visualization_msgs.msg import MarkerArray  # Visualizing Obstacles
 import pygame                   # Visualization method
 from functools import partial   # Creating Multiple subscriptions at once
@@ -27,24 +28,28 @@ import numpy as np # To deal with the background operations quickly
 class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for the same.
     def __init__(self):
         super().__init__('global_database_node')
-        self.data_file = "../config/robots.yaml"    # The data file for the same
+        self.data_file = "src/global_database/global_database/Data.yaml"    # The data file for the same
         self.data = self.load_data(self.data_file)                          # Load the data
 
         self.robot_data = {}                            # A dictionary to store robot data
-        self.num_robots = len(self.data["robot1"])        # Number of robots.
+        self.num_robots = len(self.data["bots"])        # Number of robots.
         self.scale = 100                                # Pixels to m(1000/10 = 100)
-
+        self.assign_list = {}
         # Initialize robot data
         for i in range(1, self.num_robots + 1):
-            scaled_position = (int(self.data["robot1"][i - 1]["x"] * self.scale),(1000 - int(self.data["robot1"][i - 1]["y"] * self.scale)))
+            scaled_position = (int(self.data["bots"][i - 1]["Position"][0] * self.scale),(1000 - int(self.data["bots"][i - 1]["Position"][1] * self.scale)))
             self.robot_data[i] = {"Position": scaled_position}
         
-        self.obs = []
+        # Scale obstacles from the YAML file
+        self.obs = [(int(obs["Position"][0] * self.scale),int(1000 - obs["Position"][1] * self.scale)) for obs in self.data["obstacles"]]
+        self.detectobs = []
+        self.totalobs = self.obs
 
         # Scale tasks
-        self.tasks = {}
-        for i in self.data["target"]:
-            self.tasks[i["name"]] = (int(i["x"]*self.scale),1000 - int(i["y"]*self.scale))
+        self.tasks = {k: [int(v[0]*self.scale) , 1000 - int(v[1]*self.scale)] for k, v in self.data["targets"].items()}
+        for task_name, location in self.tasks.items():
+            print(f"Task {task_name}: Position {location}")
+
         #Initialize the pygame environment
         pygame.init()
         self.screen = pygame.display.set_mode((1400, 1000))
@@ -57,6 +62,10 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
             self.create_subscription(Odometry, pos_topic, partial(self.pos_callback, i), 10)    # Odometry Subscription
         self.create_subscription(MarkerArray, '/obstacle_markers', self.obs_callback, 10)       # Obstacles Subscription
         self.create_subscription(OccupancyGrid, '/map', self.map_callback, 10)                  # Map Subscription
+
+        self.publisher_ = self.create_publisher(String,"/robot_assign",10)
+        time_period = 0.5
+        self.timer = self.create_timer(timer_period,self.assign_callback)
 
     def load_data(self, filename):  # Method to load the data.yaml file
         try:
@@ -74,11 +83,12 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
         self.update_pygame()
 
     def obs_callback(self, msg):    # Getting obstacle data via ROS Topics
-        self.obs.clear()
+        self.detectobs.clear()
         for marker in msg.markers:
             x = int(marker.pose.position.x * self.scale)
             y = self.screen.get_height() - int(marker.pose.position.y * self.scale)
-            self.obs.append((x, y))
+            self.detectobs.append((x, y))
+        self.totalobs += self.detectobs
         self.update_pygame()
 
     def map_callback(self, msg):    # Getting map data via ROS Topics , assuming output resolution is 0.1 m/cell
@@ -117,6 +127,11 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
         self.screen.blit(self.surf, (0, 0))
 
         pygame.display.update()
+    
+    def assign_callback(self):
+        msg = String()
+        msg.data = str(self.assign_list)
+        self.publisher_.publish(msg)
 
     def draw_cross(self, position, color): # Draw a X to mark the target
         X = int(25 / np.sqrt(2))
@@ -138,7 +153,7 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
         pygame.draw.circle(self.screen, pygame.Color(0, 255, 0), position, 25)
 
     def render_obstacles(self):         # Draw obstacles
-        for obs in self.obs:
+        for obs in self.totalobs:
             pygame.draw.circle(self.screen, pygame.Color(255, 0, 255), obs, 5)
 
     def render_task_table(self):        # Draw the task table
@@ -184,9 +199,8 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
             self.screen.blit(text_surface, (legend_x + 20, item_y+2))
 
     def update_data(self):  # Update Data
-        self.tasks = {}
-        for i in self.data["target"]:
-            self.tasks[i["name"]] = (int(i["x"]*self.scale),1000 - int(i["y"]*self.scale))
+        tasks = self.load_data(self.data_file).get("targets", {})
+        self.tasks = {k: [int(v[0]*self.scale),1000 - int(v[1]*self.scale)] for k, v in tasks.items()}
 
     def run_pygame(self):
         while rclpy.ok() and self.CL:
@@ -196,10 +210,29 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
             self.screen.fill((255, 255, 255))  # Clear screen in case map isn't ready
             if hasattr(self, 'surf'):         # Check if map is loaded
                 self.screen.blit(self.surf, (0, 0))  # Render background map
-
+            selected_robot = None
+            selected_target = None
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.CL = False
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_pos = pygame.mouse.get_pos()
+                    if event.button == 1:
+                        for i in range(1,self.num_robots + 1):
+                            bot_pos = self.robot_data[i]["Position"]
+                            if np.sqrt((mouse_pos[0]-bot_pos[0])**2 + (mouse_pos[1]-bot_pos[1])**2) <= 25:
+                                selected_robot = i
+                                selected_target = False
+                                break
+
+                        if selected_robot and not selected_target:
+                            for task_name, location in self.tasks.items():
+                                if np.sqrt((mouse_pos[0] - location[0])**2 + (mouse_pos[1] - location[1])**2) <= 25:
+                                    selected_target = task_name
+                                    break
+                        if selected_robot and selected_target:
+                            self.assign_list[selected_robot] = selected_target
+                            self.assign_callback()
 
             self.update_data()
             for i in range(1, self.num_robots + 1):
