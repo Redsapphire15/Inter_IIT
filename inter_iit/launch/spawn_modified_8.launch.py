@@ -9,7 +9,6 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from launch_ros.actions import PushRosNamespace
 
-
 def generate_launch_description():
     # Get the package directory
     bringup_dir = get_package_share_directory('inter_iit')
@@ -35,20 +34,14 @@ def generate_launch_description():
         os.path.join(bringup_dir, 'models', 'model_box.sdf'),
         os.path.join(bringup_dir, 'models', 'model_box.sdf')
     ]
-    	
-    print("1")
-    #sdf_path_1 = os.path.join(bringup_dir, 'models', 'waffle.model')
-    print("helo")
-    #sdf_path_2 = os.path.join(bringup_dir, 'models', 'model_box.sdf')
-    print("hello")
+    
     # Load robot descriptions
     robot_descriptions = []
     for urdf_path in urdf_paths:
         with open(urdf_path, 'r') as urdf_file:
             robot_descriptions.append(urdf_file.read())
-    print("helo")
+    
     yaml_file = os.path.join(bringup_dir, 'config', 'robots.yaml')
-
     with open(yaml_file, 'r') as file:
         robots_config = yaml.safe_load(file)
 
@@ -58,7 +51,6 @@ def generate_launch_description():
         """Creates a group action to spawn a robot."""
         namespace = robot_name
         robot_description = robot_descriptions[robot_type_index]
-        #sdf_file = sdf_path_1 if m == 1 else sdf_path_2
 
         if m == 1:
             return GroupAction([
@@ -115,17 +107,13 @@ def generate_launch_description():
                 )
             ])
 
-
-    # Dynamically spawn all robots based on YAML configuration
     for robot_type, robot_list in robots_config.items():
-        print(robot_type)
         for i, robot in enumerate(robot_list):
             if robot_type == 'robot1':  # Handle robot1 type
                 spawn_robots.append(spawn_robot_group(robot['name'], i, robot['x'], robot['y'], robot['z'], 1))
             elif robot_type == 'robot2':  # Handle robot2 type
                 spawn_robots.append(spawn_robot_group(robot['name'], i+4, robot['x'], robot['y'], robot['z'], 2))
 
-    print("ddjkajdnajdnjka")
     # Start Gazebo
     start_gazebo_server_cmd = ExecuteProcess(
         cmd=['gzserver', '-s', 'libgazebo_ros_init.so', '-s', 'libgazebo_ros_factory.so', LaunchConfiguration('world')],
@@ -158,11 +146,24 @@ def generate_launch_description():
     ld.add_action(start_gazebo_server_cmd)
     ld.add_action(start_gazebo_client_cmd)
     ld.add_action(rviz_cmd)
-    print("hdiei")
+
     # Add robot spawns
     for spawn_robot in spawn_robots:
-        print(spawn_robot)
         ld.add_action(spawn_robot)
 
-    return ld
+    # Add the det_obs.py node from the scripts folder
+    ld.add_action(ExecuteProcess(
+        cmd=['python3', os.path.join(bringup_dir, 'scripts', 'det_obs.py')],
+        output='screen'
+    ))
 
+    # Add static transform publisher for map to odom
+    ld.add_action(Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_tf_pub_map_to_odom',
+        output='screen',
+        arguments=['0', '0', '0', '0', '0', '0', 'map', 'odom']
+    ))
+
+    return ld
