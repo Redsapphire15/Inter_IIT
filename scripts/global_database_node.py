@@ -35,9 +35,8 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
         self.num_robots = len(self.data["robot1"])        # Number of robots.
         self.scale = 100                                # Pixels to m(1000/10 = 100)
         self.assign_list = {}
-        self.assign_target = "../update/targets.json"
-        self.assign_file_w = open(self.assign_target,"w")
-        self.assign_file_r = open(self.assign_target,"r")
+        self.assign_target = "../config/targets.json"
+        self.assign_file = open(self.assign_target,"r+")
         # Initialize robot data
         for i in range(1, self.num_robots + 1):
             scaled_position = (int(self.data["robot1"][i - 1]["x"] * self.scale),(1000 - int(self.data["robot1"][i - 1]["y"] * self.scale)))
@@ -70,11 +69,39 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
             self.get_logger().error(f"Failed to load data: {e}")
             return {}
 
-    def pos_callback(self, robot_id, msg):  # Getting position data of each bot via ROS Topics
+    def pos_callback(self, robot_id, msg):
         position = msg.pose.pose.position
         x = int(position.x * self.scale)
         y = self.screen.get_height() - int(position.y * self.scale)
         self.robot_data[robot_id]["Position"] = (x, y)
+
+        try:
+            # Load existing data from JSON file
+            self.assign_file.seek(0)  # Move to the beginning
+            existing_data = json.load(self.assign_file)
+            # Update position for the robot
+            updated = False
+            for robot_entry in existing_data["robot"]:
+                if robot_entry["robot_id"] == f'robot1_{robot_id}':
+                    robot_entry["position"] = [position.x, position.y]
+                    updated = True
+                    break
+
+            # Add new entry if robot is not found
+            if not updated:
+                existing_data["robot"].append({
+                    "robot_id": f'robot1_{robot_id}',
+                    "position": [position.x, position.y]
+                })
+
+            # Rewrite JSON file
+            self.assign_file.seek(0)
+            self.assign_file.truncate()
+            json.dump(existing_data, self.assign_file, indent=4)
+
+        except Exception as e:
+            self.get_logger().error(f"Error updating: {e}")
+
         self.update_pygame()
 
     def obs_callback(self, msg):    # Getting obstacle data via ROS Topics
@@ -122,24 +149,31 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
 
         pygame.display.update()
 
-    def assign_callback(self):
+    def assign_callback(self,selected_robot,selected_target):
         try:
-            # Load existing data from the JSON file
-            self.assign_file_r.seek(0)  # Move to the beginning of the file
-            try:
-                existing_data = json.load(self.assign_file_r)
-            except json.JSONDecodeError:
-                existing_data = {}
+            # Load existing data from JSON file
+            self.assign_file.seek(0)  # Move to the beginning
+            existing_data = json.load(self.assign_file)
 
-            # Update the data with new assignments
-            existing_data.update(self.assign_list)
+            for task_entry in existing_data["target"]:
+                if task_entry["object_id"] == selected_target:
+                    task_entry["is_assigned"] = True
+                    targ = task_entry["coords"]
+                    break
 
-            # Write the updated data back to the file
-            self.assign_file_w.seek(0)  # Reset file pointer to the beginning
-            self.assign_file_w.truncate()  # Clear existing file content
-            json.dump(existing_data, self.assign_file_w, indent=4)
+            for robot_entry in existing_data["robot"]:
+                if robot_entry["robot_id"] == f'robot1_{selected_robot}':
+                    robot_entry["idle"] = False
+                    robot_entry["assigned_object_coords"] = targ
+                    break
+
+            # Rewrite JSON file
+            self.assign_file.seek(0)
+            self.assign_file.truncate()
+            json.dump(existing_data, self.assign_file, indent=4)
+
         except Exception as e:
-            self.get_logger().error(f"Error updating assignments: {e}")
+            self.get_logger().error(f"Error updating: {e}")
 
     def draw_cross(self, position, color): # Draw a X to mark the target
         X = int(25 / np.sqrt(2))
@@ -240,7 +274,7 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
                                     break
                         if selected_robot and selected_target:
                             self.assign_list[selected_robot] = selected_target
-                            self.assign_callback()
+                            self.assign_callback(selected_robot,selected_target)
 
             self.update_data()
             for i in range(1, self.num_robots + 1):
@@ -253,8 +287,7 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
             pygame.display.flip()
 
         pygame.quit()
-        self.assign_file_r.close()
-        self.assign_file_w.close()
+        self.assign_file.close()
     def update_pygame(self):    # Update loop
         self.screen.fill((255,255,255))
         if hasattr(self, 'surf'):         # Check if map is loaded
