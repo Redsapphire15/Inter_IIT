@@ -29,6 +29,7 @@ class ObstacleDetector(Node):
 
         self.marker_publisher = self.create_publisher(MarkerArray, 'obstacle_markers', 10)
         self.static_obstacle_publisher = self.create_publisher(String, 'static_obstacles', 10)
+        self.obstacle_coords_publisher = self.create_publisher(String, 'obstacle_coords', 10)  # New publisher for obstacle coordinates
 
         self.load_robot_configurations()
         self.create_timer(0.5, self.update_and_publish_markers)
@@ -95,20 +96,24 @@ class ObstacleDetector(Node):
 
         self.publish_markers()
         self.publish_static_obstacles()
+        self.publish_obstacle_coords()  # Publish obstacle coordinates
 
     def decay_obstacles(self):
         to_remove = []
         for obstacle in self.global_obstacles:
             if obstacle in self.obstacle_lifetimes:
-                self.obstacle_lifetimes[obstacle] += 2
-                if self.obstacle_lifetimes[obstacle] > 10:
+                self.obstacle_lifetimes[obstacle] += 1  # Incrementing by 1 every 2 seconds
+                if self.obstacle_lifetimes[obstacle] > 5:  # Decay threshold set to 5 cycles (10 seconds)
                     if obstacle not in self.static_obstacles:
                         self.static_obstacles.append(obstacle)
                     to_remove.append(obstacle)
+            else:
+                to_remove.append(obstacle)  # Remove noise immediately
 
         for obstacle in to_remove:
             self.global_obstacles.remove(obstacle)
-            del self.obstacle_lifetimes[obstacle]
+            if obstacle in self.obstacle_lifetimes:
+                del self.obstacle_lifetimes[obstacle]
 
     def update_global_obstacles(self):
         all_obstacles = np.array(self.global_obstacles)
@@ -156,9 +161,9 @@ class ObstacleDetector(Node):
             marker.pose.orientation.y = 0.0
             marker.pose.orientation.z = 0.0
             marker.pose.orientation.w = 1.0
-            marker.scale.x = 0.1
-            marker.scale.y = 0.1
-            marker.scale.z = 0.1
+            marker.scale.x = 0.3
+            marker.scale.y = 0.3
+            marker.scale.z = 0.3
             marker.color.a = 1.0
             marker.color.r = 0.0
             marker.color.g = 1.0
@@ -172,6 +177,12 @@ class ObstacleDetector(Node):
         static_obstacle_msg = String()
         static_obstacle_msg.data = str(static_obstacle_data)
         self.static_obstacle_publisher.publish(static_obstacle_msg)
+
+    def publish_obstacle_coords(self):  # New method to publish obstacle coordinates
+        obstacle_coords = [{x,y} for (x, y) in self.global_obstacles]
+        obstacle_coords_msg = String()
+        obstacle_coords_msg.data = str(obstacle_coords)
+        self.obstacle_coords_publisher.publish(obstacle_coords_msg)
 
 def main(args=None):
     rclpy.init(args=args)
