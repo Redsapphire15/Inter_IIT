@@ -194,7 +194,6 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
             existing_data = json.load(self.assign_file)
 
             for task_entry in existing_data["target"]:
-                print(task_entry["object_id"],task_entry["is_assigned"])
                 if task_entry["is_assigned"] == True:
                     pygame.draw.circle(self.screen, assigned_color, (int(task_entry["coords"][0]*self.scale) , self.screen.get_height() - int(task_entry["coords"][1]*self.scale)), 35, 3)
 
@@ -282,7 +281,6 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = pygame.mouse.get_pos()
                     if event.button == 1:
-                        print("Hi!")
                         for i in range(1,self.num_robots + 1):
                             bot_pos = self.robot_data[i]["Position"]
                             if np.sqrt((mouse_pos[0]-bot_pos[0])**2 + (mouse_pos[1]-bot_pos[1])**2) <= 25:
@@ -291,13 +289,11 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
                                 break
 
                         if selected_robot and not selected_target:
-                            print("Ola!")
                             for task_name, location in self.tasks.items():
                                 if np.sqrt((mouse_pos[0] - location[0])**2 + (mouse_pos[1] - location[1])**2) <= 25:
                                     selected_target = task_name
                                     break
                         if selected_robot and selected_target:
-                            print("Pepe")
                             self.assign_list[selected_robot] = selected_target
                             self.assign_callback(selected_robot,selected_target)
                             selected_robot = False
