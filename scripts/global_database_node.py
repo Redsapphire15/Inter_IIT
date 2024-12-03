@@ -157,6 +157,8 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
 
             for task_entry in existing_data["target"]:
                 if task_entry["object_id"] == selected_target:
+                    if task_entry["is_assigned"] == True:
+                        return 0 #Ensuring that targets are not reassigned.
                     task_entry["is_assigned"] = True
                     targ = task_entry["coords"]
                     break
