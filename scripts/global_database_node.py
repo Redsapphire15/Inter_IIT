@@ -167,7 +167,7 @@ class GlobalDatabaseNode(Node): # Creates a node that acts as the interface for 
                 if robot_entry["robot_id"] == f'robot1_{selected_robot}':
                     robot_entry["idle"] = False
                     robot_entry["assigned_object_coords"] = targ
-                    robot_entry["status"] = "Unknown"
+                    robot_entry["status"] = "unknown"
                     break
 
             # Rewrite JSON file
