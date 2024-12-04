@@ -21,6 +21,10 @@ def generate_launch_description():
         os.path.join(bringup_dir, 'urdf', 'robot2.urdf'),
         os.path.join(bringup_dir, 'urdf', 'robot3.urdf'),
         os.path.join(bringup_dir, 'urdf', 'robot4.urdf'),
+        os.path.join(bringup_dir, 'urdf', 'robot5.urdf'),
+        os.path.join(bringup_dir, 'urdf', 'robot6.urdf'),
+        os.path.join(bringup_dir, 'urdf', 'robot7.urdf'),
+        os.path.join(bringup_dir, 'urdf', 'robot8.urdf'),
         os.path.join(bringup_dir, 'urdf', 'box_1.urdf'),
         os.path.join(bringup_dir, 'urdf', 'box_2.urdf'),
         os.path.join(bringup_dir, 'urdf', 'box_3.urdf')
@@ -31,6 +35,10 @@ def generate_launch_description():
         os.path.join(bringup_dir, 'models', 'mybot2.sdf'),
         os.path.join(bringup_dir, 'models', 'mybot3.sdf'),
         os.path.join(bringup_dir, 'models', 'mybot4.sdf'),
+        os.path.join(bringup_dir, 'models', 'mybot5.sdf'),
+        os.path.join(bringup_dir, 'models', 'mybot6.sdf'),
+        os.path.join(bringup_dir, 'models', 'mybot7.sdf'),
+        os.path.join(bringup_dir, 'models', 'mybot8.sdf'),
         os.path.join(bringup_dir, 'models', 'model_box.sdf'),
         os.path.join(bringup_dir, 'models', 'model_box.sdf'),
         os.path.join(bringup_dir, 'models', 'model_box.sdf')
@@ -47,7 +55,7 @@ def generate_launch_description():
         with open(urdf_path, 'r') as urdf_file:
             robot_descriptions.append(urdf_file.read())
     print("helo")
-    yaml_file = os.path.join(bringup_dir, 'config', 'robots.yaml')
+    yaml_file = os.path.join(bringup_dir, 'config', 'robots_scaled.yaml')
 
     with open(yaml_file, 'r') as file:
         robots_config = yaml.safe_load(file)
@@ -60,55 +68,61 @@ def generate_launch_description():
         robot_description = robot_descriptions[robot_type_index]
         #sdf_file = sdf_path_1 if m == 1 else sdf_path_2
 
-        return GroupAction([
-            PushRosNamespace(namespace),
+        if m == 1:
+            return GroupAction([
+                PushRosNamespace(namespace),
 
-            # Robot State Publisher
-            Node(
-                package='robot_state_publisher',
-                executable='robot_state_publisher',
-                name='robot_state_publisher',
-                output='screen',
-                parameters=[{'use_sim_time': True, 'robot_description': robot_description}]
-            ),
+                # Robot State Publisher
+                Node(
+                    package='robot_state_publisher',
+                    executable='robot_state_publisher',
+                    name='robot_state_publisher',
+                    output='screen',
+                    parameters=[{'use_sim_time': True, 'robot_description': robot_description}]
+                ),
 
-            # Spawn robot in Gazebo
-            Node(
-                package='gazebo_ros',
-                executable='spawn_entity.py',
-                name=f'spawn_{namespace}',
-                output='screen',
-                arguments=[
-                    '-entity', namespace,
-                    '-file', sdf_paths[robot_type_index],
-                    '-robot_namespace', namespace,
-                    '-x', str(x), '-y', str(y), '-z', str(z)
-                ]
-            ),
+                # Spawn robot in Gazebo
+                Node(
+                    package='gazebo_ros',
+                    executable='spawn_entity.py',
+                    name=f'spawn_{namespace}',
+                    output='screen',
+                    arguments=[
+                        '-entity', namespace,
+                        '-file', sdf_paths[robot_type_index],
+                        '-robot_namespace', namespace,
+                        '-x', str(x), '-y', str(y), '-z', str(z)
+                    ]
+                ),
+                Node(
+                    package='tf2_ros',
+                    executable='static_transform_publisher',
+                    name=f'static_tf_pub2_{namespace}',
+                    output='screen',
+                    arguments=[
+                        str(x), str(y), str(z), '0', '0', '0',  # Transform (x, y, z, roll, pitch, yaw)
+                        'odom',                         # Parent frame
+                        f'{namespace}/base_footprint'  # Child frame
+                    ]
+                )
+            ])
+        else:
+            return GroupAction([
+                PushRosNamespace(namespace),
+                 Node(
+                    package='gazebo_ros',
+                    executable='spawn_entity.py',
+                    name=f'spawn_{namespace}',
+                    output='screen',
+                    arguments=[
+                        '-entity', namespace,
+                        '-file', sdf_paths[robot_type_index],
+                        '-robot_namespace', namespace,
+                        '-x', str(x), '-y', str(y), '-z', str(z)
+                    ]
+                )
+            ])
 
-            Node(
-                package='tf2_ros',
-                executable='static_transform_publisher',
-                name=f'static_tf_pub_{namespace}',
-                output='screen',
-                arguments=[
-                    str(x), str(y), str(z), '0', '0', '0',  # Transform (x, y, z, roll, pitch, yaw)
-                    'map',                         # Parent frame
-                    f'{namespace}/odom'  # Child frame
-                ]
-            ),
-            Node(
-                package='tf2_ros',
-                executable='static_transform_publisher',
-                name=f'static_tf_pub1_{namespace}',
-                output='screen',
-                arguments=[
-                    str(x), str(y), str(z), '0', '0', '0',  # Transform (x, y, z, roll, pitch, yaw)
-                    f'{namespace}/odom',                         # Parent frame
-                    f'{namespace}/base_footprint'  # Child frame
-                ]
-            )
-        ])
 
     # Dynamically spawn all robots based on YAML configuration
     for robot_type, robot_list in robots_config.items():
@@ -117,7 +131,7 @@ def generate_launch_description():
             if robot_type == 'robot1':  # Handle robot1 type
                 spawn_robots.append(spawn_robot_group(robot['name'], i, robot['x'], robot['y'], robot['z'], 1))
             elif robot_type == 'robot2':  # Handle robot2 type
-                spawn_robots.append(spawn_robot_group(robot['name'], i+4, robot['x'], robot['y'], robot['z'], 2))
+                spawn_robots.append(spawn_robot_group(robot['name'], i+8, robot['x'], robot['y'], robot['z'], 2))
 
     print("ddjkajdnajdnjka")
     # Start Gazebo
@@ -146,7 +160,7 @@ def generate_launch_description():
     # Declare arguments
     ld.add_action(DeclareLaunchArgument('use_sim_time', default_value='true', description='Use simulation clock'))
     ld.add_action(DeclareLaunchArgument('use_rviz', default_value='true', description='Start RVIZ'))
-    ld.add_action(DeclareLaunchArgument('world', default_value=os.path.join(bringup_dir, 'worlds', 'world_easy.world'), description='World file'))
+    ld.add_action(DeclareLaunchArgument('world', default_value=os.path.join(bringup_dir, 'worlds', 'world2_easy.world'), description='World file'))
 
     # Add Gazebo and RVIZ
     ld.add_action(start_gazebo_server_cmd)

@@ -1,0 +1,3667 @@
+<sdf version='1.7'>
+  <world name='default'>
+    <plugin name='gazebo_ros_control' filename='libgazebo_ros_control.so'/>
+    <plugin name='set_entity_state_plugin' filename='libset_entity_state.so'>
+      <robot_name>dynamic_obsticle</robot_name>
+    </plugin>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+    <model name='ground_plane'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <physics type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <audio>
+      <device>default</device>
+    </audio>
+    <wind/>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <model name='inter'>
+      <pose>4.83241 4.97383 0 0 -0 0</pose>
+      <link name='Wall_2'>
+        <collision name='Wall_2_Collision'>
+          <geometry>
+            <box>
+              <size>10 0.15 2.5</size>
+            </box>
+          </geometry>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_2_Visual'>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>10 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+            <ambient>1 1 1 1</ambient>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <pose>0 -4.925 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='Wall_6'>
+        <collision name='Wall_6_Collision'>
+          <geometry>
+            <box>
+              <size>10 0.15 2.5</size>
+            </box>
+          </geometry>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_6_Visual'>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>10 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+            <ambient>1 1 1 1</ambient>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <pose>4.925 0 0 0 -0 1.5708</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='Wall_7'>
+        <collision name='Wall_7_Collision'>
+          <geometry>
+            <box>
+              <size>10 0.15 2.5</size>
+            </box>
+          </geometry>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_7_Visual'>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>10 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+            <ambient>1 1 1 1</ambient>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <pose>0 4.925 0 0 -0 3.14159</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='Wall_8'>
+        <collision name='Wall_8_Collision'>
+          <geometry>
+            <box>
+              <size>10 0.15 2.5</size>
+            </box>
+          </geometry>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='Wall_8_Visual'>
+          <pose>0 0 1.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>10 0.15 2.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+            <ambient>1 1 1 1</ambient>
+          </material>
+          <meta>
+            <layer>0</layer>
+          </meta>
+        </visual>
+        <pose>-4.925 0 0 0 -0 -1.5708</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <static>1</static>
+    </model>
+    <model name='StorageRack'>
+      <link name='link'>
+        <pose>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://StorageRack/meshes/StorageRack.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://StorageRack/meshes/StorageRack.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>3.14887 6.41732 0 0 -0 0</pose>
+    </model>
+    <model name='aws_robomaker_warehouse_DeskC_01'>
+      <link name='link'>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.608</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.476</iyy>
+            <iyz>0</iyz>
+            <izz>0.542</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://aws_robomaker_warehouse_DeskC_01/meshes/aws_robomaker_warehouse_DeskC_01_collision.DAE</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.3</mu>
+                <mu2>0.3</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://aws_robomaker_warehouse_DeskC_01/meshes/aws_robomaker_warehouse_DeskC_01_visual.DAE</uri>
+            </mesh>
+          </geometry>
+          <meta>
+            <layer>1</layer>
+          </meta>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <static>1</static>
+      <pose>0.524786 6.48256 0 0 -0 0</pose>
+    </model>
+    <state world_name='default'>
+      <sim_time>2876 607000000</sim_time>
+      <real_time>330 468036840</real_time>
+      <wall_time>1732957851 121496716</wall_time>
+      <iterations>300892</iterations>
+      <model name='StorageRack'>
+        <pose>0.825043 6.42657 -0 0 -0 0.012208</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.825043 6.42657 -0 0 -0 0.012208</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-9e-06 -0 1.89561 0.259553 -0.854688 2e-06</acceleration>
+          <wrench>-9e-06 -0 1.89561 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='StorageRackCoverOpen'>
+        <pose>4.8138 9.42502 -0.00255 -8.7e-05 -0.000366 0.07069</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>4.8138 9.42502 -0.00255 -8.7e-05 -0.000366 0.07069</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.013303 0.003871 -48.9981 -0.464458 -0.428306 -0.00114</acceleration>
+          <wrench>0.013303 0.003871 -48.9981 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='StorageRackCoverOpen_clone'>
+        <pose>6.16257 9.41078 -2e-06 0 3e-06 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>6.16257 9.41078 -2e-06 0 3e-06 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>4e-06 -0 -0.038258 -0.003497 -0.331533 -1e-06</acceleration>
+          <wrench>4e-06 -0 -0.038258 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='StorageRack_clone'>
+        <pose>0.851414 5.66329 -1e-06 0 -2e-06 0.012208</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.851414 5.66329 -1e-06 0 -2e-06 0.012208</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-8e-06 -1e-06 2.26979 0.296364 -1.08428 1e-06</acceleration>
+          <wrench>-8e-06 -1e-06 2.26979 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='StorageRack_clone_2'>
+        <pose>0.834328 4.79903 -1e-06 0 2e-06 0.012208</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0.834328 4.79903 -1e-06 0 2e-06 0.012208</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>5e-06 -0 0.423039 -0.037657 -0.047943 -1e-06</acceleration>
+          <wrench>5e-06 -0 0.423039 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='aws_robomaker_warehouse_DeskC_01'>
+        <pose>5.42402 7 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>5.42402 7 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='aws_robomaker_warehouse_DeskC_01_clone'>
+        <pose>5.44514 4 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>5.44514 4 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='aws_robomaker_warehouse_DeskC_01_clone_0'>
+        <pose>4 4 0 0 0 -3.14159</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>4 4 0 0 0 -3.14159</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='aws_robomaker_warehouse_DeskC_01_clone_1'>
+        <pose>4 7 0 0 0 -3.14159</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>4 7 0 0 0 -3.14159</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='aws_robomaker_warehouse_TrashCanC_01'>
+        <pose>8.80757 0.616736 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>8.80757 0.616736 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='cart_front_steer'>
+        <pose>2.74016 1.81983 1e-06 -9e-06 8e-06 0.031525</pose>
+        <scale>1 1 1</scale>
+        <link name='chassis'>
+          <pose>2.74016 1.81983 0.150001 -9e-06 8e-06 0.031525</pose>
+          <velocity>0.00017 0.000665 0.001287 -0.013194 0.006088 0.000213</velocity>
+          <acceleration>0.153727 0.049192 -2.38189 1.67842 0.275922 0.180818</acceleration>
+          <wrench>1.53727 0.491917 -23.8189 0 -0 0</wrench>
+        </link>
+        <link name='wheel_front_left'>
+          <pose>3.23052 2.13344 0.149994 1.57084 -1.04546 -3.11006</pose>
+          <velocity>0.000121 0.00077 -0.005955 -0.022372 0.029344 0.110859</velocity>
+          <acceleration>0.132383 -0.151461 -5.95478 -2.6479 -0.479676 -2.43294</acceleration>
+          <wrench>0.066192 -0.075731 -2.97739 0 -0 0</wrench>
+        </link>
+        <link name='wheel_front_right'>
+          <pose>3.24931 1.53774 0.150001 -1.57082 -1.22977 0.031667</pose>
+          <velocity>-0.000267 0.000615 0.001746 -0.004091 -0.00232 -0.011348</velocity>
+          <acceleration>0.272525 -0.10883 4.42146 1.00271 -0.200121 -1.67413</acceleration>
+          <wrench>0.136263 -0.054415 2.21073 0 -0 0</wrench>
+        </link>
+        <link name='wheel_rear_left'>
+          <pose>2.23101 2.10192 0.150001 1.57082 0.776425 -3.11005</pose>
+          <velocity>8.1e-05 0.000926 0.000854 -0.006276 0.000454 0.000312</velocity>
+          <acceleration>0.051674 0.675163 -9.24049 1.50905 0.052766 0.327597</acceleration>
+          <wrench>0.025837 0.337581 -4.62024 0 -0 0</wrench>
+        </link>
+        <link name='wheel_rear_right'>
+          <pose>2.2498 1.50622 0.150008 1.57083 -1.1511 -3.1101</pose>
+          <velocity>0.000258 0.000525 0.008208 -0.012433 0.000243 0.000252</velocity>
+          <acceleration>0.181756 -0.06335 -1.92503 -2.22475 -0.2683 0.434202</acceleration>
+          <wrench>0.090878 -0.031675 -0.962517 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='ground_plane'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='inter'>
+        <pose>24.8324 24.9738 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Wall_2'>
+          <pose>24.8324 20.0488 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Wall_6'>
+          <pose>29.7574 24.9738 0 0 -0 1.5708</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Wall_7'>
+          <pose>24.8324 29.8988 0 0 -0 3.14159</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+        <link name='Wall_8'>
+          <pose>19.9074 24.9738 0 0 0 -1.5708</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_0_clone_5'>
+        <pose>4.64196 9.4367 1.49534 -0.000352 -0.000156 0.987441</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>4.64196 9.4367 1.49534 -0.000352 -0.000156 0.987441</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -19.6 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_0_clone_6'>
+        <pose>5.23313 9.62816 1.498 -2e-06 -4e-06 0.070099</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>5.23313 9.62816 1.498 -2e-06 -4e-06 0.070099</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>3.51769 2.88145 -1.86817 -1.02531 0.482074 1.2369</acceleration>
+          <wrench>7.03538 5.7629 -3.73633 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_1_clone_0'>
+        <pose>5.23499 9.62483 1.166 -2e-06 -4e-06 0.070564</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>5.23499 9.62483 1.166 -2e-06 -4e-06 0.070564</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>2.65658 2.2219 -1.63022 -1.09769 0.227532 1.68445</acceleration>
+          <wrench>5.31317 4.4438 -3.26044 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_1_clone_3'>
+        <pose>2.99828 1.80005 0.289999 -2e-06 4e-06 -1.56793</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2.99828 1.80005 0.289999 -2e-06 4e-06 -1.56793</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.301783 0.134307 3.90639 0.576266 0.10388 -3.1077</acceleration>
+          <wrench>0.603566 0.268615 7.81278 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_1_clone_4'>
+        <pose>2.63274 1.83864 0.290002 2e-06 1e-06 1.55552</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2.63274 1.83864 0.290002 2e-06 1e-06 1.55552</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.331079 0.898383 3.74774 1.04362 1.14695 1.07088</acceleration>
+          <wrench>0.662159 1.79676 7.49548 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_1_clone_4_clone'>
+        <pose>2.63657 1.84225 0.469999 -2e-06 -0 1.56507</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2.63657 1.84225 0.469999 -2e-06 -0 1.56507</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.289801 -1.76379 -1.1449 3.10077 1.21661 -0.117268</acceleration>
+          <wrench>0.579602 -3.52759 -2.2898 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_6'>
+        <pose>4.04698 2.34586 0.049245 0 -0 0.265136</pose>
+        <scale>0.547255 0.547255 0.547255</scale>
+        <link name='link'>
+          <pose>4.04698 2.34586 0.049245 0 -0 0.265136</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0.002072 0.020989 0.053771 -0.419432 -0.039499 -0.002415</acceleration>
+          <wrench>-0.004144 0.041978 0.107542 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_0'>
+        <pose>2.59368 7.48891 0.089996 3.14159 1.6e-05 -2.88792</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2.59368 7.48891 0.089996 3.14159 1.6e-05 -2.88792</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>6e-06 1.2e-05 -1e-05 -0.000118 0.000106 4.8e-05</acceleration>
+          <wrench>1.1e-05 2.4e-05 -1.9e-05 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_10'>
+        <pose>2.2576 3.301 0.449993 -3.14155 4e-06 -2.88762</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2.2576 3.301 0.449993 -3.14155 4e-06 -2.88762</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-2e-05 -4.5e-05 1.1e-05 0.000177 -3e-06 -9.3e-05</acceleration>
+          <wrench>-3.9e-05 -9.1e-05 2.2e-05 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_11'>
+        <pose>2.20824 3.79611 0.269995 -3.14159 3e-06 -2.88851</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2.20824 3.79611 0.269995 -3.14159 3e-06 -2.88851</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0.006318 -0.004021 0.003165 -0.015002 -0.050774 0.01048</acceleration>
+          <wrench>-0.012635 -0.008041 0.00633 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_12'>
+        <pose>2.1668 3.55887 0.294507 -1.57281 0.000736 -2.86948</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2.1668 3.55887 0.294507 -1.57281 0.000736 -2.86948</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.007214 -0.030631 -0.009151 0.155478 0.004532 0.058323</acceleration>
+          <wrench>0.014428 -0.061262 -0.018303 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_13'>
+        <pose>2.19763 3.79581 0.449591 -3.1407 -0.000789 -2.88861</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2.19763 3.79581 0.449591 -3.1407 -0.000789 -2.88861</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0.016807 -0.002141 0.003668 -0.012792 -0.066892 0.015583</acceleration>
+          <wrench>-0.033615 -0.004282 0.007336 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_14'>
+        <pose>2.19754 3.81773 0.089995 -3.14159 3e-06 -2.88898</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2.19754 3.81773 0.089995 -3.14159 3e-06 -2.88898</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0.001692 -0.0024 -0.004314 0.01048 -0.009462 -0.003498</acceleration>
+          <wrench>-0.003383 -0.004799 -0.008629 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_15'>
+        <pose>1.67663 3.76151 0.269663 3.14138 -8.4e-05 -2.88754</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>1.67663 3.76151 0.269663 3.14138 -8.4e-05 -2.88754</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.010925 0.005418 -0.016755 -0.01292 0.038637 -0.022335</acceleration>
+          <wrench>0.02185 0.010837 -0.033511 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_16'>
+        <pose>5.97978 1.98341 0.269953 -3.14158 0.000234 -2.88981</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>5.97978 1.98341 0.269953 -3.14158 0.000234 -2.88981</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.013101 -0.057214 0.009887 0.46794 0.19599 -0.029262</acceleration>
+          <wrench>0.026202 -0.114428 0.019774 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_17'>
+        <pose>5.97834 1.98266 0.449948 -3.14156 0.000237 -2.89999</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>5.97834 1.98266 0.449948 -3.14156 0.000237 -2.89999</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.071548 -0.157024 0.005231 0.612453 0.443503 -0.039359</acceleration>
+          <wrench>0.143095 -0.314047 0.010461 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_18'>
+        <pose>6.13449 1.82304 0.09 0.000335 0.000193 -2.87522</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>6.13449 1.82304 0.09 0.000335 0.000193 -2.87522</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.002106 -0.004313 -0.033107 0.050611 0.035925 0.003871</acceleration>
+          <wrench>0.004211 -0.008626 -0.066215 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_19'>
+        <pose>5.87427 2.49785 0.269594 3.13891 9e-06 -2.88705</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>5.87427 2.49785 0.269594 3.13891 9e-06 -2.88705</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0.003778 0.077557 -0.024983 -0.340397 0.062859 0.023264</acceleration>
+          <wrench>-0.007557 0.155115 -0.049966 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_20'>
+        <pose>5.85703 2.49372 0.089901 0 0 -2.89388</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>5.85703 2.49372 0.089901 0 0 -2.89388</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0.004866 0.023992 -0.005966 -0.262768 -0.050502 0.011078</acceleration>
+          <wrench>-0.009732 0.047985 -0.011931 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_22'>
+        <pose>5.8948 2.26289 0.089489 -3.14156 0.000202 -2.88971</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>5.8948 2.26289 0.089489 -3.14156 0.000202 -2.88971</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0 -0 0 0 -0 0</acceleration>
+          <wrench>-0 -0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_24'>
+        <pose>5.93222 2.03473 0.08995 -3.14159 0.000248 -2.88835</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>5.93222 2.03473 0.08995 -3.14159 0.000248 -2.88835</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0.003464 -0.00596 -0.012324 0.037794 -0.071832 -0.006214</acceleration>
+          <wrench>-0.006928 -0.011921 -0.024647 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_25'>
+        <pose>6.56799 2.13796 0.089499 -3.13725 -0 -2.88913</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>6.56799 2.13796 0.089499 -3.13725 -0 -2.88913</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0.001444 0.00545 0.012297 -0.079987 -0.027612 0.025975</acceleration>
+          <wrench>-0.002888 0.0109 0.024594 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_26'>
+        <pose>6.48314 2.38569 0.089995 3.14159 -0 -2.88212</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>6.48314 2.38569 0.089995 3.14159 -0 -2.88212</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0.001507 -0.047582 0.112223 0.723968 -0.013897 -0.020152</acceleration>
+          <wrench>-0.003015 -0.095165 0.224446 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_27'>
+        <pose>6.33668 2.37233 0.269994 3.14159 6e-06 -2.88627</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>6.33668 2.37233 0.269994 3.14159 6e-06 -2.88627</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.043589 -0.185424 0.24938 0.835522 0.501646 -0.006949</acceleration>
+          <wrench>0.087179 -0.370848 0.498759 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_28'>
+        <pose>6.37228 2.12875 0.269912 3.14083 4e-06 -2.9231</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>6.37228 2.12875 0.269912 3.14083 4e-06 -2.9231</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.011 0.004613 -0.020572 -0.527025 0.168614 0.067265</acceleration>
+          <wrench>0.022001 0.009226 -0.041143 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_29'>
+        <pose>6.36039 2.62149 0.089997 3.14157 -2e-06 -2.90067</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>6.36039 2.62149 0.089997 3.14157 -2e-06 -2.90067</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-6e-06 -1.2e-05 1.6e-05 0.000165 0.000105 0.000103</acceleration>
+          <wrench>-1.2e-05 -2.3e-05 3.3e-05 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_30'>
+        <pose>4.06175 2.15664 0.147219 3.14158 -3e-05 -2.91307</pose>
+        <scale>0.56291 0.56291 0.56291</scale>
+        <link name='link'>
+          <pose>4.06175 2.15664 0.147219 3.14158 -3e-05 -2.91307</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0.04383 0.013686 -0.071655 0.490344 -0.777959 -0.005232</acceleration>
+          <wrench>-0.08766 0.027373 -0.14331 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_31'>
+        <pose>4.05519 2.35082 0.1507 -3.1412 0.001074 -2.87559</pose>
+        <scale>0.581503 0.581503 0.581503</scale>
+        <link name='link'>
+          <pose>4.05519 2.35082 0.1507 -3.1412 0.001074 -2.87559</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0.01731 0.072531 0.058593 -0.585906 -0.244526 -0.011518</acceleration>
+          <wrench>-0.03462 0.145062 0.117187 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_33'>
+        <pose>3.82314 2.07328 0.044785 0 1e-06 -3.11641</pose>
+        <scale>0.497674 0.497674 0.497674</scale>
+        <link name='link'>
+          <pose>3.82314 2.07328 0.044785 0 1e-06 -3.11641</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.001725 -0.002347 0.009868 0.051236 0.038758 -0.001354</acceleration>
+          <wrench>0.00345 -0.004693 0.019737 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_34'>
+        <pose>4.06291 2.35415 0.253781 -3.14064 0.000606 -2.89976</pose>
+        <scale>0.56502 0.56502 0.56502</scale>
+        <link name='link'>
+          <pose>4.06291 2.35415 0.253781 -3.14064 0.000606 -2.89976</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0.046702 0.139262 0.049392 -0.704126 -0.319973 -0.00946</acceleration>
+          <wrench>-0.093404 0.278524 0.098784 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_35'>
+        <pose>4.06539 2.16164 0.048277 -3.14159 -0 -2.88315</pose>
+        <scale>0.536474 0.536474 0.536474</scale>
+        <link name='link'>
+          <pose>4.06539 2.16164 0.048277 -3.14159 -0 -2.88315</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-8.6e-05 0.007955 0.024079 -0.164393 -0.003564 0.002839</acceleration>
+          <wrench>-0.000172 0.015911 0.048157 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_37'>
+        <pose>3.0012 1.79685 0.469991 -1e-06 2e-06 1.57442</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>3.0012 1.79685 0.469991 -1e-06 2e-06 1.57442</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0.256204 -0.611309 4.04494 1.4285 -0.23948 -3.10714</acceleration>
+          <wrench>-0.512407 -1.22262 8.08989 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_38'>
+        <pose>3.82217 2.07177 0.141361 3.14158 -3.1e-05 -2.92466</pose>
+        <scale>0.575428 0.575428 0.575428</scale>
+        <link name='link'>
+          <pose>3.82217 2.07177 0.141361 3.14158 -3.1e-05 -2.92466</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-0.011848 -0.032774 -0.009466 0.3965 -0.31467 -0.004865</acceleration>
+          <wrench>-0.023696 -0.065548 -0.018932 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_5'>
+        <pose>5.96491 1.9737 0.629913 -3.14141 0.000156 -2.93326</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>5.96491 1.9737 0.629913 -3.14141 0.000156 -2.93326</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.166652 -0.279894 0.012116 0.761827 0.620854 -0.049903</acceleration>
+          <wrench>0.333305 -0.559787 0.024232 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_6'>
+        <pose>2.26594 3.29596 0.089999 3.14159 -0 -2.88788</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2.26594 3.29596 0.089999 3.14159 -0 -2.88788</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-6e-06 -5e-06 -1.2e-05 4e-05 -7e-05 -2.3e-05</acceleration>
+          <wrench>-1.1e-05 -1e-05 -2.4e-05 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_7'>
+        <pose>2.26926 3.2986 0.269999 3.14159 0 -2.88718</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2.26926 3.2986 0.269999 3.14159 0 -2.88718</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>-1.5e-05 -1.8e-05 3e-06 0.000133 -2.9e-05 -6.7e-05</acceleration>
+          <wrench>-3.1e-05 -3.6e-05 5e-06 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_8'>
+        <pose>1.67112 3.76676 0.09 3.14159 -0 -2.88771</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>1.67112 3.76676 0.09 3.14159 -0 -2.88771</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.004408 0.002187 -0.011452 -0.002941 0.032157 -0.016416</acceleration>
+          <wrench>0.008816 0.004375 -0.022905 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='small box_clone_7_clone_9'>
+        <pose>2.17825 3.57605 0.089991 -3.14159 -0 -2.88895</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2.17825 3.57605 0.089991 -3.14159 -0 -2.88895</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.001639 -0.004429 -0.00569 0.066129 0.042672 0.029091</acceleration>
+          <wrench>0.003277 -0.008858 -0.011379 0 -0 0</wrench>
+        </link>
+      </model>
+      <light name='sun'>
+        <pose>0 0 10 0 -0 0</pose>
+      </light>
+    </state>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>13.8686 -1.00448 6.73947 -0 0.385796 2.50149</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+    <model name='StorageRackCoverOpen'>
+      <link name='link'>
+        <pose>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://StorageRackCoverOpen/meshes/StorageRackCoverOpen.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://StorageRackCoverOpen/meshes/StorageRackCoverOpen.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>4.78289 9.51091 0 0 -0 0</pose>
+    </model>
+    <model name='aws_robomaker_warehouse_TrashCanC_01'>
+      <link name='link'>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.2</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.308</iyy>
+            <iyz>0</iyz>
+            <izz>0.24</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://aws_robomaker_warehouse_TrashCanC_01/meshes/aws_robomaker_warehouse_TrashCanC_01_collision.DAE</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.4</mu>
+                <mu2>0.4</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://aws_robomaker_warehouse_TrashCanC_01/meshes/aws_robomaker_warehouse_TrashCanC_01_visual.DAE</uri>
+            </mesh>
+          </geometry>
+          <meta>
+            <layer>1</layer>
+          </meta>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <static>1</static>
+      <pose>7.14649 0.616736 0 0 -0 0</pose>
+    </model>
+    <model name='small box_clone_6'>
+      <pose>3.37109 1.91203 1.49779 0.009669 0.042708 0.239854</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.730921 0.420281 0.328914</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+              <scale>0.547255 0.547255 0.547255</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_0_clone_5'>
+      <pose>4.5732 9.35678 1.49683 1e-06 -4e-06 0.16464</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_0_clone_6'>
+      <pose>5.09104 9.45386 1.49683 1e-06 -4e-06 0.16464</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_1_clone_0'>
+      <pose>5.10265 9.47331 1.16599 2e-06 2e-06 0.088732</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_1_clone_3'>
+      <pose>2.58007 0.914239 1.16599 2e-06 2e-06 0.088732</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_1_clone_4'>
+      <pose>2.641 0.496164 1.16599 2e-06 2e-06 0.088732</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='cart_front_steer'>
+      <link name='chassis'>
+        <pose>0 0 0.15 0 -0 0</pose>
+        <inertial>
+          <pose>0.1 0 0 0 -0 0</pose>
+          <mass>10</mass>
+          <inertia>
+            <ixx>0.216667</ixx>
+            <iyy>0.841667</iyy>
+            <izz>1.04167</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 0.5 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 0.5 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='wheel_front_left'>
+        <pose>0.5 0.298 0.15 -1.5708 -0.087266 0</pose>
+        <inertial>
+          <mass>0.5</mass>
+          <inertia>
+            <ixx>0.00307917</ixx>
+            <iyy>0.00307917</iyy>
+            <izz>0.005625</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.15</radius>
+              <length>0.08</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.15</radius>
+              <length>0.08</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Black</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='wheel_front_left_steer_spin' type='universal'>
+        <parent>chassis</parent>
+        <child>wheel_front_left</child>
+        <axis>
+          <xyz>0 -1 0</xyz>
+          <limit>
+            <lower>-0.610865</lower>
+            <upper>0.610865</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+        <axis2>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <upper>1e+16</upper>
+            <lower>-1e+16</lower>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis2>
+      </joint>
+      <link name='wheel_front_right'>
+        <pose>0.5 -0.298 0.15 -1.5708 -0.087266 0</pose>
+        <inertial>
+          <mass>0.5</mass>
+          <inertia>
+            <ixx>0.00307917</ixx>
+            <iyy>0.00307917</iyy>
+            <izz>0.005625</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.15</radius>
+              <length>0.08</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.15</radius>
+              <length>0.08</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Black</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='wheel_front_right_steer_spin' type='universal'>
+        <parent>chassis</parent>
+        <child>wheel_front_right</child>
+        <axis>
+          <xyz>0 -1 0</xyz>
+          <limit>
+            <lower>-0.610865</lower>
+            <upper>0.610865</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+        <axis2>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <upper>1e+16</upper>
+            <lower>-1e+16</lower>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis2>
+      </joint>
+      <link name='wheel_rear_left'>
+        <pose>-0.5 0.298 0.15 -1.5708 0 0</pose>
+        <inertial>
+          <mass>0.5</mass>
+          <inertia>
+            <ixx>0.00307917</ixx>
+            <iyy>0.00307917</iyy>
+            <izz>0.005625</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.15</radius>
+              <length>0.08</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.15</radius>
+              <length>0.08</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Black</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='wheel_rear_left_spin' type='revolute'>
+        <parent>chassis</parent>
+        <child>wheel_rear_left</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <link name='wheel_rear_right'>
+        <pose>-0.5 -0.298 0.15 -1.5708 0 0</pose>
+        <inertial>
+          <mass>0.5</mass>
+          <inertia>
+            <ixx>0.00307917</ixx>
+            <iyy>0.00307917</iyy>
+            <izz>0.005625</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <cylinder>
+              <radius>0.15</radius>
+              <length>0.08</length>
+            </cylinder>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <cylinder>
+              <radius>0.15</radius>
+              <length>0.08</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Black</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='wheel_rear_right_spin' type='revolute'>
+        <parent>chassis</parent>
+        <child>wheel_rear_right</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+        </axis>
+      </joint>
+      <pose>0.714422 1.78326 0 0 -0 0</pose>
+    </model>
+    <model name='aws_robomaker_warehouse_DeskC_01_clone'>
+      <link name='link'>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.608</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.476</iyy>
+            <iyz>0</iyz>
+            <izz>0.542</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://aws_robomaker_warehouse_DeskC_01/meshes/aws_robomaker_warehouse_DeskC_01_collision.DAE</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.3</mu>
+                <mu2>0.3</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://aws_robomaker_warehouse_DeskC_01/meshes/aws_robomaker_warehouse_DeskC_01_visual.DAE</uri>
+            </mesh>
+          </geometry>
+          <meta>
+            <layer>1</layer>
+          </meta>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <static>1</static>
+      <pose>5.44514 4.67277 0 0 -0 0</pose>
+    </model>
+    <model name='aws_robomaker_warehouse_DeskC_01_clone_0'>
+      <link name='link'>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.608</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.476</iyy>
+            <iyz>0</iyz>
+            <izz>0.542</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://aws_robomaker_warehouse_DeskC_01/meshes/aws_robomaker_warehouse_DeskC_01_collision.DAE</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.3</mu>
+                <mu2>0.3</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://aws_robomaker_warehouse_DeskC_01/meshes/aws_robomaker_warehouse_DeskC_01_visual.DAE</uri>
+            </mesh>
+          </geometry>
+          <meta>
+            <layer>1</layer>
+          </meta>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <static>1</static>
+      <pose>4.35866 4.6946 0 0 -0 0</pose>
+    </model>
+    <model name='aws_robomaker_warehouse_DeskC_01_clone_1'>
+      <link name='link'>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.608</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.476</iyy>
+            <iyz>0</iyz>
+            <izz>0.542</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://aws_robomaker_warehouse_DeskC_01/meshes/aws_robomaker_warehouse_DeskC_01_collision.DAE</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.3</mu>
+                <mu2>0.3</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://aws_robomaker_warehouse_DeskC_01/meshes/aws_robomaker_warehouse_DeskC_01_visual.DAE</uri>
+            </mesh>
+          </geometry>
+          <meta>
+            <layer>1</layer>
+          </meta>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <static>1</static>
+      <pose>4.36063 6.3291 0 0 -0 0</pose>
+    </model>
+    <model name='StorageRackCoverOpen_clone'>
+      <link name='link'>
+        <pose>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://StorageRackCoverOpen/meshes/StorageRackCoverOpen.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://StorageRackCoverOpen/meshes/StorageRackCoverOpen.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>6.31462 9.32046 -0.000233 4.1e-05 -2.7e-05 0.035393</pose>
+    </model>
+    <model name='StorageRack_clone'>
+      <link name='link'>
+        <pose>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://StorageRack/meshes/StorageRack.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://StorageRack/meshes/StorageRack.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.851414 5.66329 -1e-06 -0 1e-06 0.012208</pose>
+    </model>
+    <model name='StorageRack_clone_2'>
+      <link name='link'>
+        <pose>0 0 0 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://StorageRack/meshes/StorageRack.obj</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://StorageRack/meshes/StorageRack.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <self_collide>0</self_collide>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>0.834328 4.79903 -0 -0 1e-06 0.012208</pose>
+    </model>
+    <model name='small box_clone_7_clone_0'>
+      <pose>2.59368 7.48891 0.089998 3.14159 7e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_5'>
+      <pose>5.91979 1.98641 0.089998 3.14159 7e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_6'>
+      <pose>2.93456 3.66186 0.089998 3.14159 7e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_7'>
+      <pose>1.64192 3.03489 0.089998 3.14159 8e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_8'>
+      <pose>1.67114 3.76678 0.089998 3.14159 8e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_9'>
+      <pose>1.72452 3.45414 0.089998 3.14159 8e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_10'>
+      <pose>2.25738 3.30182 0.089998 3.14159 8e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_11'>
+      <pose>2.20838 3.79585 0.089998 3.14159 8e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_12'>
+      <pose>2.91076 3.6761 0.089998 3.14159 8e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_13'>
+      <pose>2.19773 3.79553 0.089998 3.14159 8e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_14'>
+      <pose>2.20306 3.79571 0.089998 3.14159 8e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_15'>
+      <pose>1.67663 3.76158 0.089998 3.14159 8e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_16'>
+      <pose>5.97287 2.00513 0.089998 3.14159 8e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_17'>
+      <pose>5.97287 2.00513 0.089998 3.14159 8e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_18'>
+      <pose>5.97287 2.00513 0.089998 3.14159 8e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_19'>
+      <pose>6.09221 1.94987 0.089998 3.14159 8e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_20'>
+      <pose>6.09221 1.94987 0.089998 3.14159 8e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_22'>
+      <pose>5.96468 2.27588 0.089998 3.14159 9e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_24'>
+      <pose>5.90829 2.14615 0.089998 3.14159 9e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_25'>
+      <pose>6.56799 2.13783 0.089998 3.14159 9e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_26'>
+      <pose>6.47088 2.42101 0.089998 3.14159 9e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_28'>
+      <pose>6.37011 2.12368 0.089998 3.14159 9e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_29'>
+      <pose>6.36372 2.58234 0.089998 3.14159 9e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_27'>
+      <pose>6.33226 2.37021 0.089998 3.14159 9e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_30'>
+      <pose>4.2214 1.98131 0.089998 3.14159 9e-06 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.710593 0.408589 0.319767</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+              <scale>0.56291 0.56291 0.56291</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_31'>
+      <pose>4.05785 2.19474 0.089998 3.14159 1e-05 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.687873 0.395529 0.309544</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+              <scale>0.581503 0.581503 0.581503</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_33'>
+      <pose>4.23326 2.00528 0.089998 3.14159 1e-05 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.803738 0.462149 0.36168</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+              <scale>0.497674 0.497674 0.497674</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_34'>
+      <pose>4.23326 2.00528 0.089998 3.14159 1e-05 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.707939 0.407067 0.318574</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+              <scale>0.56502 0.56502 0.56502</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_35'>
+      <pose>4.16402 2.21603 0.089998 3.14159 1e-05 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.745609 0.428725 0.335522</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+              <scale>0.536474 0.536474 0.536474</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_37'>
+      <pose>4.22923 2.00689 0.089998 3.14159 1e-05 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_7_clone_38'>
+      <pose>4.16239 2.21521 0.089998 3.14159 1e-05 -2.88792</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.695135 0.399701 0.312811</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+              <scale>0.575428 0.575428 0.575428</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='small box_clone_1_clone_4_clone'>
+      <pose>2.65065 1.8214 0.289991 -4e-06 -0 1.56087</pose>
+      <static>0</static>
+      <link name='link'>
+        <inertial>
+          <mass>2</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <pose>0 0 0 0 -0 0</pose>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>0.4 0.23 0.18</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <max_vel>0.1</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://small_box/meshes/small_box.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+  </world>
+</sdf>

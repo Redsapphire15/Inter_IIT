@@ -27,7 +27,35 @@ robot1:
     cmd_vel: /robot1_4/cmd_vel
     odom_topic: /robot1_4/odom
     scan_topic: /robot1_4/robot1_4/scan
-            
+  - name: robot1_5
+    x: 8.6
+    y: 4
+    z: 0.01
+    cmd_vel: /robot1_5/cmd_vel
+    odom_topic: /robot1_5/odom
+    scan_topic: /robot1_5/robot1_5/scan
+  - name: robot1_6
+    x: 8.3
+    y: 4.3
+    z: 0.01
+    cmd_vel: /robot1_6/cmd_vel
+    odom_topic: /robot1_6/odom
+    scan_topic: /robot1_6/robot1_6/scan
+  - name: robot1_7
+    x: 8.6
+    y: 4.3
+    z: 0.01
+    cmd_vel: /robot1_7/cmd_vel
+    odom_topic: /robot1_7/odom
+    scan_topic: /robot1_7/robot1_7/scan
+  - name: robot1_8
+    x: 8
+    y: 4
+    z: 0.01
+    cmd_vel: /robot1_8/cmd_vel
+    odom_topic: /robot1_8/odom
+    scan_topic: /robot1_8/robot1_8/scan
+
 robot2:
   - name: robot2_1
     x: 8.5

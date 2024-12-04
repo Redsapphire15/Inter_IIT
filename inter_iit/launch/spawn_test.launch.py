@@ -17,8 +17,8 @@ def generate_launch_description():
 
     # Paths for URDFs and SDFs
     urdf_paths = [
-        os.path.join(bringup_dir, 'urdf', 'bot1.urdf'),
-		os.path.join(bringup_dir, 'urdf', 'box__1.urdf')
+        os.path.join(bringup_dir, 'urdf', 'robot1.urdf'),
+		os.path.join(bringup_dir, 'urdf', 'box_1.urdf')
     ]
     print("1")
     sdf_path_1 = os.path.join(bringup_dir, 'models', 'mybot1.sdf')

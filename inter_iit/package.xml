@@ -4,7 +4,7 @@
   <name>inter_iit</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="kavin@todo.todo">kavin</maintainer>
+  <maintainer email="habibo@todo.todo">habibo</maintainer>
   <license>TODO: License declaration</license>
   <test_depend>ament_lint_common</test_depend>
   

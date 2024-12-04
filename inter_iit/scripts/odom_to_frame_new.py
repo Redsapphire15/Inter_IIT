@@ -3,135 +3,76 @@ from rclpy.node import Node
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import TransformStamped
 from tf2_ros import TransformBroadcaster
+from rclpy.parameter import Parameter
+
+
+
+
 
 class OdometryToTF(Node):
     def __init__(self):
         super().__init__('odometry_to_tf')
-        
+
         # Create a tf2 broadcaster
         self.broadcaster = TransformBroadcaster(self)
-        
-        # Create a subscriber to robot1/odom
-        self.odom1_subscriber = self.create_subscription(
-            Odometry,
-            '/robot1_1/odom',
-            self.odom1_callback,
-            10
-        )
+        self.set_parameters([Parameter('use_sim_time', value=True)])
+        # Create subscribers to odometry topics
+        self.odom_data = {
+            'robot1_1': None,
+            'robot1_2': None,
+            'robot1_3': None,
+            'robot1_4': None,
+        }
 
-        self.odom1_subscriber = self.create_subscription(
-            Odometry,
-            '/robot1_2/odom',
-            self.odom2_callback,
-            10
-        )
+        self.create_subscription(Odometry, '/robot1_1/odom', self.odom_callback('robot1_1'), 10)
+        self.create_subscription(Odometry, '/robot1_2/odom', self.odom_callback('robot1_2'), 10)
+        self.create_subscription(Odometry, '/robot1_3/odom', self.odom_callback('robot1_3'), 10)
+        self.create_subscription(Odometry, '/robot1_4/odom', self.odom_callback('robot1_4'), 10)
 
-        self.odom1_subscriber = self.create_subscription(
-            Odometry,
-            '/robot1_3/odom',
-            self.odom3_callback,
-            10
-        )
+        # Timer to publish transforms at 100 Hz
+        self.timer = self.create_timer(0.01, self.publish_transforms)
 
-        self.odom1_subscriber = self.create_subscription(
-            Odometry,
-            '/robot1_4/odom',
-            self.odom4_callback,
-            10
-        )
-        
-        # Initialize the transform message
-        self.transform = TransformStamped()
+    def odom_callback(self, robot_name):
+        def callback(msg):
+            self.odom_data[robot_name] = msg
+        return callback
 
-    def odom1_callback(self, msg):
-        print("Hi")
-        # Extract odometry position and orientation data
-        odom_frame = 'odom'
-        base_link_frame = 'robot1_1/base_footprint'
+    def publish_transforms(self):
+        print("Ji")
+        for robot_name, odom_msg in self.odom_data.items():
+            if odom_msg:
+                # Set transform data
+                odom_frame = 'odom'
+                base_link_frame = f'{robot_name}/base_footprint'
 
-        self.transform.header.stamp = self.get_clock().now().to_msg()
-        self.transform.header.frame_id = odom_frame
-        self.transform.child_frame_id = base_link_frame
+                transform = TransformStamped()
+                # transform.header.stamp = self.get_clock().now().to_msg()
+                transform.header.stamp = odom_msg.header.stamp
+                transform.header.frame_id = odom_frame
+                transform.child_frame_id = base_link_frame
 
-        self.transform.transform.translation.x = msg.pose.pose.position.x
-        self.transform.transform.translation.y = msg.pose.pose.position.y
-        self.transform.transform.translation.z = msg.pose.pose.position.z
+                transform.transform.translation.x = odom_msg.pose.pose.position.x
+                transform.transform.translation.y = odom_msg.pose.pose.position.y
+                transform.transform.translation.z = odom_msg.pose.pose.position.z
+                transform.transform.rotation = odom_msg.pose.pose.orientation
 
-        self.transform.transform.rotation = msg.pose.pose.orientation
-
-        # Broadcast the transform
-        self.broadcaster.sendTransform(self.transform)
-
-    def odom2_callback(self, msg):
-        print("Hi")
-        # Extract odometry position and orientation data
-        odom_frame = 'odom'
-        base_link_frame = 'robot1_2/base_footprint'
-
-        self.transform.header.stamp = self.get_clock().now().to_msg()
-        self.transform.header.frame_id = odom_frame
-        self.transform.child_frame_id = base_link_frame
-
-        self.transform.transform.translation.x = msg.pose.pose.position.x
-        self.transform.transform.translation.y = msg.pose.pose.position.y
-        self.transform.transform.translation.z = msg.pose.pose.position.z
-
-        self.transform.transform.rotation = msg.pose.pose.orientation
-
-        # Broadcast the transform
-        self.broadcaster.sendTransform(self.transform)
-
-    def odom3_callback(self, msg):
-        print("Hi")
-        # Extract odometry position and orientation data
-        odom_frame = 'odom'
-        base_link_frame = 'robot1_3/base_footprint'
-
-        self.transform.header.stamp = self.get_clock().now().to_msg()
-        self.transform.header.frame_id = odom_frame
-        self.transform.child_frame_id = base_link_frame
-
-        self.transform.transform.translation.x = msg.pose.pose.position.x
-        self.transform.transform.translation.y = msg.pose.pose.position.y
-        self.transform.transform.translation.z = msg.pose.pose.position.z
-
-        self.transform.transform.rotation = msg.pose.pose.orientation
-
-        # Broadcast the transform
-        self.broadcaster.sendTransform(self.transform)
-
-    def odom4_callback(self, msg):
-        print("Hi")
-        # Extract odometry position and orientation data
-        odom_frame = 'odom'
-        base_link_frame = 'robot1_4/base_footprint'
-
-        self.transform.header.stamp = self.get_clock().now().to_msg()
-        self.transform.header.frame_id = odom_frame
-        self.transform.child_frame_id = base_link_frame
-
-        self.transform.transform.translation.x = msg.pose.pose.position.x
-        self.transform.transform.translation.y = msg.pose.pose.position.y
-        self.transform.transform.translation.z = msg.pose.pose.position.z
-
-        self.transform.transform.rotation = msg.pose.pose.orientation
-
-        # Broadcast the transform
-        self.broadcaster.sendTransform(self.transform)
+                # Broadcast the transform
+                self.broadcaster.sendTransform(transform)
 
 
 def main(args=None):
-    print("Hi")
     rclpy.init(args=args)
 
     odometry_to_tf_node = OdometryToTF()
 
     # Spin the node to keep it running and processing callbacks
     rclpy.spin(odometry_to_tf_node)
-    print("Hi2")
+
     # Destroy the node explicitly when done
     odometry_to_tf_node.destroy_node()
     rclpy.shutdown()
 
+
 if __name__ == '__main__':
     main()
+
